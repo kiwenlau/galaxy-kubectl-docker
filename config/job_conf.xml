@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- A sample job config that explicitly configures job running the way it is configured by default (if there is no explicit config). -->
+<job_conf>
+    <plugins>
+        <plugin id="local" type="runner" load="galaxy.jobs.runners.local:LocalJobRunner" workers="4"/>
+        <plugin id="aurora" type="runner" load="galaxy.jobs.runners.aurora:AuroraJobRunner"/>
+    </plugins>
+    <handlers>
+        <handler id="main"/>
+    </handlers>
+    <destinations default="local">
+        <destination id="local" runner="local"/>
+        <destination id="aurora" runner="aurora">
+            <param id="docker_enabled">true</param>
+        </destination>
+    </destinations>
+    <tools>
+        <tool id="tophat2_aurora" destination="aurora"/>
+    </tools>
+</job_conf>
+
+
+
